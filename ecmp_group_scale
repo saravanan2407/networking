@@ -1,0 +1,71 @@
+N BGP neighbors can help to scale 2^N - N-1 unique ECMP groups.
+9 BGP neighbors can help to scale 2^9 - 9-1 = 502 unique ECMP groups.
+4 BGP neighbors can help to scale 2^4 - 4-1 = 11 unique ECMP groups.
+For scaling 512 groups, we need to first create 9 BGP neighbors. Later some 4 neighbors we will create to fill the last gap with 11 ecmp groups.
+
+##################################################################
+Below is how the routes should be pumped from bgp neighbor for 502 scale:
+##################################################################
+Route count for all neighbors = 512/2 = 256
+
+START_ROUTE = 200.1.0.0/32
+
+Neighbor1: 
+Start route 	: START_ROUTE + (2^0 - 1)
+Increment step 	: 0.0.0.(2^1)
+
+Neighbor2:
+Start route 	: START_ROUTE + (2^1 - 1)
+Increment step 	: 0.0.0.1 count (2^1) and then by 0.0.0.(2^2)
+
+Neighbor3:
+Start route 	: START_ROUTE + (2^2 - 1)
+Increment step 	: 0.0.0.1 count (2^2) and then by 0.0.0.(2^3)
+
+Neighbor4:
+Start route 	: START_ROUTE + (2^3 - 1)
+Increment step 	: 0.0.0.1 count (2^3) and then by 0.0.0.(2^4)
+
+Neighbor5:
+Start route 	: START_ROUTE + (2^4 - 1)
+Increment step 	: 0.0.0.1 count (2^4) and then by 0.0.0.(2^5)
+
+Neighbor6:
+Start route 	: START_ROUTE + (2^5 - 1)
+Increment step 	: 0.0.0.1 count (2^5) and then by 0.0.0.(2^6)
+
+Neighbor7:
+Start route 	: START_ROUTE + (2^6 - 1)
+Increment step 	: 0.0.0.1 count (2^6) and then by 0.0.0.(2^7)
+
+Neighbor8:
+Start route 	: START_ROUTE + (2^7 - 1)
+Increment step 	: 0.0.0.1 count (2^7) and then by 0.0.0.(2^8)
+
+Neighbor9:
+Start route 	: START_ROUTE + (2^8 - 1)
+Increment step 	: 0.0.0.1 count (2^8) and then by 0.0.0.(2^9)
+
+##################################################################
+Below is how the routes should be pumped from bgp neighbor for 11 scale:
+##################################################################
+
+Route count for all neighbors = 16/2 = 8
+
+START_ROUTE = 200.2.0.0/32
+
+Neighbor1: 
+Start route 	: START_ROUTE + (2^0 - 1)
+Increment step 	: 0.0.0.(2^1)
+
+Neighbor2:
+Start route 	: START_ROUTE + (2^1 - 1)
+Increment step 	: 0.0.0.1 count (2^1) and then by 0.0.0.(2^2)
+
+Neighbor3:
+Start route 	: START_ROUTE + (2^2 - 1)
+Increment step 	: 0.0.0.1 count (2^2) and then by 0.0.0.(2^3)
+
+Neighbor4:
+Start route 	: START_ROUTE + (2^3 - 1)
+Increment step 	: 0.0.0.1 count (2^3) and then by 0.0.0.(2^4)
